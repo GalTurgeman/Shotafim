@@ -101,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(RegisterActivity.this, "User already exists", Toast.LENGTH_LONG).show();
                         }
                         else{
-                            db.child("Users").child(user.getEmail().replace(",","|")).setValue(user);
+                            db.child("Users").child(user.getEmail().replace(".","|").toLowerCase()).setValue(user);
                             Toast.makeText(RegisterActivity.this,"Registration done.",Toast.LENGTH_LONG).show();
                         }
                     }
