@@ -1,3 +1,5 @@
+package com.example.gal.shotafim;
+
 import java.util.Date;
 
 public class Group {

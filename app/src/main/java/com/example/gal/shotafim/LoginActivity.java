@@ -1,16 +1,16 @@
 package com.example.gal.shotafim;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,34 +27,66 @@ public class LoginActivity extends AppCompatActivity  {
     //Strings
     private String usrNameTxtString;
     private String passTxtString;
-    private FirebaseAuth mAuth;
 
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = database.getReference();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        mAuth = FirebaseAuth.getInstance();
 
         signInBtn=findViewById(R.id.signInBtn);
-        signUpBtn=findViewById(R.id.signUpBtn);
+        signUpBtn=findViewById(R.id.signUpLoginBtn);
 
         usrNameTxt = findViewById(R.id.usrNameTxt);
-        passTxt = findViewById(R.id.passTxt);
+        passTxt = (EditText)findViewById(R.id.passTxt);
 
-        usrNameTxtString = usrNameTxt.toString();
-        passTxtString = passTxt.toString();
+        usrNameTxtString = usrNameTxt.getText().toString();
+        passTxtString = passTxt.getText().toString();
 
         //On Click sign in Button
-//        signInBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        signInBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                usrNameTxtString = usrNameTxt.getText().toString();
+                passTxtString = passTxt.getText().toString();
+                FirebaseAuth mAuth;
+                mAuth = FirebaseAuth.getInstance();
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                final DatabaseReference myRef = database.getReference();
+
+                myRef.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        boolean loginIsOk = false;
+                        User user;
+                        if(dataSnapshot.child("user154,gmail,com").exists()){
+                            user = (User)dataSnapshot.getValue(User.class);
+                            Log.d("Motek",""+dataSnapshot.getValue().toString());
+//                            Log.d("Motek",""+user.toString());
+                            Log.d("Motek",""+passTxtString);
+                            Log.d("Motek",""+user.getPassword());
+                            if(passTxtString.toString().equals(user.getPassword())){
+                                Log.d("Motek","Third");
+                                loginIsOk = true;
+                            }
+                        }
+                        if(loginIsOk){
+                            Toast.makeText(LoginActivity.this
+                            ,"LOGIN GOOD GOOD",(Toast.LENGTH_LONG)).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
         //On click sign up button
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,13 +95,7 @@ public class LoginActivity extends AppCompatActivity  {
             }
         });
     }
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        updateUI(currentUser);
-    }
+
     public void switchToRegister(){
         Intent i = new Intent("com.example.gal.shotafim.RegisterActivity");
         startActivity(i);

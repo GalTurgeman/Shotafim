@@ -1,3 +1,5 @@
+package com.example.gal.shotafim;
+
 public class Address {
     private String country;
     private String city;

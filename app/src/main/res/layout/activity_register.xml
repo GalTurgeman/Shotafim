@@ -7,93 +7,180 @@
     tools:context=".RegisterActivity">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/nameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="15dp"
         android:ems="10"
+        android:hint="Username"
         android:inputType="textPersonName"
-        android:text="Name"
-        app:layout_constraintBottom_toTopOf="@+id/editText5"
+        app:layout_constraintBottom_toTopOf="@+id/emailTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="spread" />
 
     <EditText
-        android:id="@+id/editText4"
+        android:id="@+id/emailTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="99dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="99dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="15dp"
         android:ems="10"
+        android:hint="Email"
         android:inputType="textPersonName"
-        android:text="Email"
-        app:layout_constraintBottom_toTopOf="@+id/radioButton"
+        app:layout_constraintBottom_toTopOf="@+id/passTxt"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText5" />
+        app:layout_constraintTop_toBottomOf="@+id/nameTxt" />
 
     <EditText
-        android:id="@+id/editText5"
+        android:id="@+id/passTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="99dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="99dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="15dp"
         android:ems="10"
+        android:hint="Password"
         android:inputType="textPersonName"
-        android:text="Password"
-        app:layout_constraintBottom_toTopOf="@+id/editText4"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/emailTxt" />
 
-    <RadioButton
-        android:id="@+id/radioButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="335dp"
-        android:text="Has an apt"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/radioButton2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
-
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="246dp"
-        android:text="Create new apt"
-        app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/radioButton"
-        app:layout_constraintTop_toBottomOf="@+id/editText4" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/signUpBtn"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="130dp"
-        android:layout_height="52dp"
+        android:layout_width="127dp"
+        android:layout_height="45dp"
         android:layout_marginStart="140dp"
-        android:layout_marginTop="259dp"
-        android:layout_marginEnd="141dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="276dp"
+        android:layout_marginEnd="183dp"
+        android:layout_marginBottom="5dp"
         android:text="Sign up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioButton" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="152dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/signUpLoginBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passTxt">
+
+        <RadioButton
+            android:id="@+id/radioButtonCreate"
+            android:layout_width="148dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Create Apt" />
+
+        <RadioButton
+            android:id="@+id/radioButtonHas"
+            android:layout_width="148dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Has an apt" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/aptTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:hint="Apt"
+        android:inputType="textPersonName"
+        android:text="Apt"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/cityTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <EditText
+        android:id="@+id/cityTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:hint="City"
+        android:inputType="textPersonName"
+        android:text="City"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/streetTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/aptTxt" />
+
+    <EditText
+        android:id="@+id/streetTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:hint="Street"
+        android:inputType="textPersonName"
+        android:text="Street"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/countryTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cityTxt" />
+
+    <EditText
+        android:id="@+id/countryTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:ems="10"
+        android:hint="Country"
+        android:inputType="textPersonName"
+        android:text="Country"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/signUpLoginBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/streetTxt" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="left" />
+
+    <EditText
+        android:id="@+id/aptIDTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="32dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Apt ID"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/aptTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/radioGroup"
+        app:layout_constraintTop_toBottomOf="@+id/passTxt" />
 
 </android.support.constraint.ConstraintLayout>
