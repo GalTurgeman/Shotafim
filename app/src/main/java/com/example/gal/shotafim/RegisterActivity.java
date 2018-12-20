@@ -90,22 +90,49 @@ public class RegisterActivity extends AppCompatActivity {
                 nameTxt.getText().toString(),
                 emailTxt.getText().toString(),
                 passTxt.getText().toString());
-        db.child("Users").child(user.getName().replace(".","|")).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    Toast.makeText(RegisterActivity.this, "User already exists", Toast.LENGTH_LONG).show();
-                }
-                else{
-                    db.child("Users").child(user.getEmail().replace(",","|")).setValue(user);
-                    Toast.makeText(RegisterActivity.this,"Registration done.",Toast.LENGTH_LONG).show();
-                }
+            if((HasEmptyFields() || radioGroup.getCheckedRadioButtonId()== -1) ){
+                Toast.makeText(RegisterActivity.this,"There is empty field,try again!",Toast.LENGTH_LONG).show();
             }
+            else{
+                db.child("Users").child(user.getEmail().replace(".","|").toLowerCase()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.exists()){
+                            Toast.makeText(RegisterActivity.this, "User already exists", Toast.LENGTH_LONG).show();
+                        }
+                        else{
+                            db.child("Users").child(user.getEmail().replace(",","|")).setValue(user);
+                            Toast.makeText(RegisterActivity.this,"Registration done.",Toast.LENGTH_LONG).show();
+                        }
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
+                    }
+                });
             }
-        });
+    }
+
+    /**
+     *  Check if all field is filled.
+     * @return True / False , True if there is empty field ,False otherwise.
+     */
+    private boolean HasEmptyFields(){
+         if(radioGroup.getCheckedRadioButtonId() == hasAptRadio.getId()){
+             return (aptIDTxt.getText().toString().isEmpty() ||
+                     nameTxt.getText().toString().isEmpty() ||
+                     emailTxt.getText().toString().isEmpty() ||
+                     passTxt.getText().toString().isEmpty());
+         }
+         else{
+             return !(aptTxt.getText().toString().isEmpty() ||
+                     streetTxt.getText().toString().isEmpty() ||
+                     countryTxt.getText().toString().isEmpty() ||
+                     cityTxt.getText().toString().isEmpty() ||
+                     nameTxt.getText().toString().isEmpty() ||
+                     emailTxt.getText().toString().isEmpty() ||
+                     passTxt.getText().toString().isEmpty());
+         }
     }
 }

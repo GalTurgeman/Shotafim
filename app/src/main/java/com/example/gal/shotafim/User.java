@@ -1,6 +1,8 @@
 package com.example.gal.shotafim;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class User {
 
@@ -8,7 +10,7 @@ public class User {
     private String Name;
     private String Email;
     private String Password;//HashedPassword
-    private Date Date;
+    private String Date;
     private double Credit;
 
     @Override
@@ -55,12 +57,8 @@ public class User {
         Password = password;
     }
 
-    public java.util.Date getDate() {
+    public String getDate() {
         return Date;
-    }
-
-    public void setDate(java.util.Date date) {
-        Date = date;
     }
 
     public double getCredit() {
@@ -74,11 +72,17 @@ public class User {
     public User(String userID, String name, String email, String password) {
         this.userID = userID;
         Name = name;
-        Email = email;
+        Email = email.replace(".","|").toLowerCase();
         Password = password;
-        Date = new Date();
+        Date = createDate();
         Credit = 0;
     }
     public User (){
+    }
+    private String createDate() {
+        Date d = new Date();
+        SimpleDateFormat ft = new SimpleDateFormat("E dd.mm.yyy HH:mm:ss");
+        ft.setTimeZone(TimeZone.getTimeZone("GMT+2"));
+        return ft.format(d);
     }
 }

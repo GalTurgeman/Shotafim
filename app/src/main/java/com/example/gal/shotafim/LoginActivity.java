@@ -56,19 +56,15 @@ public class LoginActivity extends AppCompatActivity  {
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 final DatabaseReference myRef = database.getReference();
 
-                myRef.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
-
+                myRef.child("Users").child(usrNameTxtString.replace(".","|").toLowerCase()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                         boolean loginIsOk = false;
                         User user;
-                        if(dataSnapshot.child("user154,gmail,com").exists()){
+                        if(dataSnapshot.exists()){
                             user = (User)dataSnapshot.getValue(User.class);
                             Log.d("Motek",""+dataSnapshot.getValue().toString());
-//                            Log.d("Motek",""+user.toString());
-                            Log.d("Motek",""+passTxtString);
-                            Log.d("Motek",""+user.getPassword());
                             if(passTxtString.toString().equals(user.getPassword())){
                                 Log.d("Motek","Third");
                                 loginIsOk = true;
@@ -76,8 +72,12 @@ public class LoginActivity extends AppCompatActivity  {
                         }
                         if(loginIsOk){
                             Toast.makeText(LoginActivity.this
-                            ,"LOGIN GOOD GOOD",(Toast.LENGTH_LONG)).show();
+                                    ,"LOGIN GOOD GOOD",(Toast.LENGTH_LONG)).show();
                         }
+                        else {
+                            Toast.makeText(LoginActivity.this,"Email or password is incorrect,try again!",Toast.LENGTH_LONG).show();
+                        }
+
                     }
 
                     @Override
@@ -99,5 +99,13 @@ public class LoginActivity extends AppCompatActivity  {
     public void switchToRegister(){
         Intent i = new Intent("com.example.gal.shotafim.RegisterActivity");
         startActivity(i);
+    }
+
+    /**
+     * Check if all field is filled.
+     * @return True / False , True if there is empty field ,False otherwise.
+     */
+    private boolean HasEmptyField(){
+        return (passTxtString.isEmpty() || usrNameTxtString.isEmpty());
     }
 }
